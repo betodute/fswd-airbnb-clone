@@ -3,6 +3,8 @@ module Api
     def create
       @user = User.find_by(email: params[:user][:email])
 
+      # is the below creating a bcrypt password? Or is the how it can be decrypted?
+
       if @user && (BCrypt::Password.new(@user.password) == params[:user][:password])
         session = @user.sessions.create
         cookies.permanent.signed[:airbnb_session_token] = {
